@@ -15,12 +15,33 @@ const HomePage = () =>{
     const [onlineStreams, setOnlineStreams] = useState([]);
 
     useEffect(()=>{
+        const requestPopularMovies = async () =>{
+            const getPopularMovies = await  axios.get(
+                 "https://api.themoviedb.org/3/movie/popular?api_key=ccfa4ecd270cd9e26cc5791a495b5aca"
+                );
+            setPremierMovies(getPopularMovies.data.results);
+        };
+        requestPopularMovies();
+    }, []);
+
+    useEffect(()=>{
         const requestTopRatedMovies = async () =>{
-            const getTopRatedMovies = await 
-            axios.get( "https://api.themoviedb.org/3/movie/top_rated?api_key=ccfa4ecd270cd9e26cc5791a495b5aca");
+            const getTopRatedMovies = await axios.get(
+                 "https://api.themoviedb.org/3/movie/top_rated?api_key=ccfa4ecd270cd9e26cc5791a495b5aca"
+                );
             setRecommendedMovies(getTopRatedMovies.data.results);
         };
         requestTopRatedMovies();
+    }, []);
+
+    useEffect(()=>{
+        const requestUpcomingMovies = async () =>{
+            const getUpcomingMovies = await axios.get(
+                 "https://api.themoviedb.org/3/movie/upcoming?api_key=ccfa4ecd270cd9e26cc5791a495b5aca"
+                );
+            setOnlineStreams(getUpcomingMovies.data.results);
+        };
+        requestUpcomingMovies();
     }, []);
 
     return(
